@@ -1,5 +1,10 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
+const Employee = require('./lib/employees');
+const Engineer = require('./lib/engineer');
+const Intern = require('./lib/intern');
+const Manager = require('./lib/manager');
+const generateHtml = require('./src/generateHtml');
 
 // // GIVEN a command-line application that accepts user input
 // WHEN I am prompted for my team members and their information
