@@ -175,6 +175,17 @@ const promptIntern = [
     },
 ]
 
+function writeToFile(response) {
+    
+    const pageContent = generateMarkdown(response);
+    fs.writeFile('./dist/index.html', pageContent, (err) => {
+        if (err === true) {
+            console.log('error');
+        }
+    })
+
+}
+
 // this function runs beginning prompt
 function init() {
     console.log('Build your team!');
@@ -182,9 +193,9 @@ function init() {
         .then((response) => {
             console.log(response);
             inquirer.prompt(promptAdd);
-            if (response === 'Engineer') {
-                inquirer.prompt(promptEngineer);
-            }
+
+            const pageContent = generateMarkdown(response);
+            writeToFile(response)
         })
 
 }
