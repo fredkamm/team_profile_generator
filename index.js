@@ -4,8 +4,186 @@ const Employee = require('./lib/employees');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 const Manager = require('./lib/manager');
-const generateHtml = require('./src/generateHtml');
+// const generateHtml = require('./src/generateHtml');
 
+
+// since manager is required this will be the first prompt displayed
+const promptManager = () => {
+    return inquirer.prompt([ 
+        {
+            type: 'input',
+            message: 'What is your name?',
+            name: 'name',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Name input is required'
+                }
+            },
+        },
+        {
+            type: 'input',
+            message: 'What is your Employee-ID?',
+            name: 'id',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Employee-id input is required'
+                }
+            },
+        },
+        {
+            type: 'input',
+            message: 'What is your Email?',
+            name: 'email',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Email input is required'
+                }
+            },
+        },
+        {
+            type: 'input',
+            message: 'What is your office number?',
+            name: 'officeNumber',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Office number input is required'
+                }
+            },
+        },
+        // Add input to the manager class and call next prompt
+    ])
+}
+promptManager();
+
+// prompt that will be displayed after the manager prompt
+const promptAdd = () => {
+    return inquirer.prompt([
+        {
+            type: 'list',
+            name: 'addEmployee',
+            message: 'Do you want to add more employees?',
+            choices: ['Engineer', 'Intern', 'No']
+        }
+    ])
+}
+
+// engineer prompt
+const promptEngineer = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is your name?',
+            name: 'name',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Name input is required'
+                }
+            },
+        },
+        {
+            type: 'input',
+            message: 'What is your Employee-ID?',
+            name: 'id',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Employee-id input is required'
+                }
+            },
+        },
+        {
+            type: 'input',
+            message: 'What is your Email?',
+            name: 'email',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Email input is required'
+                }
+            },
+        },
+        {
+            type: 'input',
+            message: 'What is your Github username?',
+            name: 'github',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'GitHub username input is required'
+                }
+            },
+        },
+        
+    ])
+}
+
+// intern prompt
+const promptIntern = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is your name?',
+            name: 'name',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Name input is required'
+                }
+            },
+        },
+        {
+            type: 'input',
+            message: 'What is your Employee-ID?',
+            name: 'id',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Employee-id input is required'
+                }
+            },
+        },
+        {
+            type: 'input',
+            message: 'What is your Email?',
+            name: 'email',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Email input is required'
+                }
+            },
+        },
+        {
+            type: 'input',
+            message: 'What school do you attend?',
+            name: 'school',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'School input is required'
+                }
+            },
+        },
+        
+    ])
+}
 // // GIVEN a command-line application that accepts user input
 // WHEN I am prompted for my team members and their information
 // THEN an HTML file is generated that displays a nicely formatted team roster based on user input

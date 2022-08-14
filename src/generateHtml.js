@@ -1,3 +1,3 @@
 
 
-module.exports = Generate;
+// module.exports = Generate;

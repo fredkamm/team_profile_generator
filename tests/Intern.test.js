@@ -1,5 +1,5 @@
 const Intern = require('../lib/intern');
-const intern = new Intern('fred', '1', 'fred@gmail.com', 'fred')
+const intern = new Intern('fred', '1', 'fred@gmail.com',)
 
 describe("Intern", () => {
     describe('name', () => {

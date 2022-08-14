@@ -1,5 +1,5 @@
 const Manager = require('../lib/manager');
-const manager = new Manager('fred', '1', 'fred@gmail.com', 'fred')
+const manager = new Manager('fred', '1', 'fred@gmail.com',)
 
 describe("Manager", () => {
     describe('name', () => {
