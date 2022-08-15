@@ -1,6 +1,6 @@
 const index = require('../index')
 
-function generateMarkdown(team) {
+function generateMarkdown(manResponse) {
     return `<!doctype html>
     <html lang="en">
     
@@ -22,7 +22,7 @@ function generateMarkdown(team) {
                 <div class="card-body text-primary">
                     <p class="card-text">ID: ${manResponse.id}</p>
                     <p class="card-text">Email: ${manResponse.email}</p>
-                    <p class="card-text">Office Number: ${manResponse.officeNumber}    </p>
+                    <p class="card-text">Office Number: ${manResponse.officeNumber}</p>
                 </div>
             </div>
         </section>

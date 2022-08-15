@@ -62,9 +62,16 @@ const promptManager = () => {
             },
         },
     ]).then(manResponse => {
-        console.log(manResponse);
+
         const manager = new Manager(manResponse.name, manResponse.id, manResponse.email, manResponse.officeNumber);
         team.push(manager)
+
+        const pageContent = generateMarkdown(manResponse);
+        fs.writeFile('./dist/index.html', pageContent, (err) => {
+            if (err === true) {
+                console.log('error');
+            }
+        })
         promptAdd();
     })
 };
@@ -77,16 +84,15 @@ const promptAdd = () => {
             type: 'list',
             name: 'addEmployee',
             message: 'Do you want to add more employees?',
-            choices: ['Engineer', 'Intern', 'No']
+            choices: ['Engineer', 'Intern', 'No, im done']
         }
     ]).then(choice => {
         if (choice.addEmployee === 'Engineer') {
             return promptEngineer();
         } if (choice.addEmployee === 'Intern') {
             return promptIntern();
-        } if (choice.addEmployee === 'No')
+        } if (choice.addEmployee === 'No, im done')
             return console.log('Your team is set!');
-            writeToFile(response);
     })
 }
 
@@ -205,29 +211,18 @@ const promptIntern = () => {
     })
 }
 
-function writeToFile(team) {
+// function writeToFile() {
 
-    const pageContent = generateMarkdown(team);
-    fs.writeFile('./dist/index.html', pageContent, (err) => {
-        if (err === true) {
-            console.log('error');
-        }
-    })
+//     const pageContent = generateMarkdown();
+//     fs.writeFile('./dist/index.html', pageContent, (err) => {
+//         if (err === true) {
+//             console.log('error');
+//         }
+//     })
 
-}
+// }
 
 promptManager();
-
-// this function runs beginning prompt
-// function init() {
-//     console.log('Build your team!');
-//     inquirer.prompt(promptManager)
-//         .then((response) => {
-//             promptAdd();
-//             writeToFile(response)
-//         })
-// }
-// init()
 
 // // GIVEN a command-line application that accepts user input
 // WHEN I am prompted for my team members and their information
