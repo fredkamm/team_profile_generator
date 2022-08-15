@@ -6,178 +6,208 @@ const Intern = require('./lib/intern');
 const Manager = require('./lib/manager');
 const generateMarkdown = require('./src/generateHtml');
 
+const team = [];
+
 
 // manager prompt (needs to be displayed first)
-const promptManager = [
-    {
-        type: 'input',
-        message: 'What is your name?',
-        name: 'name',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'Name input is required'
-            }
+const promptManager = () => {
+    console.log('Lets build your team!');
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is your Managers name?',
+            name: 'name',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Name input is required'
+                }
+            },
         },
-    },
-    {
-        type: 'input',
-        message: 'What is your Employee-ID?',
-        name: 'id',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'Employee-id input is required'
-            }
+        {
+            type: 'input',
+            message: 'What is your Mangers Employee-ID?',
+            name: 'id',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Employee-id input is required'
+                }
+            },
         },
-    },
-    {
-        type: 'input',
-        message: 'What is your Email?',
-        name: 'email',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'Email input is required'
-            }
+        {
+            type: 'input',
+            message: 'What is your Managers Email address?',
+            name: 'email',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Email input is required'
+                }
+            },
         },
-    },
-    {
-        type: 'input',
-        message: 'What is your office number?',
-        name: 'officeNumber',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'Office number input is required'
-            }
+        {
+            type: 'input',
+            message: 'What is your Managers office number?',
+            name: 'officeNumber',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Office number input is required'
+                }
+            },
         },
-    },
-]
-// Add input to the manager class and call next prompt
+    ]).then(manResponse => {
+        console.log(manResponse);
+        const manager = new Manager(manResponse.name, manResponse.id, manResponse.email, manResponse.officeNumber);
+        team.push(manager)
+        promptAdd();
+    })
+};
 
 
-// prompt that will be displayed after the manager prompt
-const promptAdd = [
-    {
-        type: 'list',
-        name: 'addEmployee',
-        message: 'Do you want to add more employees?',
-        choices: ['Engineer', 'Intern', 'No']
-    }
-]
+// prompt to add employees that will be displayed after the manager prompt
+const promptAdd = () => {
+    return inquirer.prompt([
+        {
+            type: 'list',
+            name: 'addEmployee',
+            message: 'Do you want to add more employees?',
+            choices: ['Engineer', 'Intern', 'No']
+        }
+    ]).then(choice => {
+        if (choice.addEmployee === 'Engineer') {
+            return promptEngineer();
+        } if (choice.addEmployee === 'Intern') {
+            return promptIntern();
+        } if (choice.addEmployee === 'No')
+            return console.log('Your team is set!');
+            writeToFile(response);
+    })
+}
 
 // engineer prompt
-const promptEngineer = [
-    {
-        type: 'input',
-        message: 'What is your name?',
-        name: 'name',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'Name input is required'
-            }
+const promptEngineer = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the Engineers name?',
+            name: 'name',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Name input is required'
+                }
+            },
         },
-    },
-    {
-        type: 'input',
-        message: 'What is your Employee-ID?',
-        name: 'id',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'Employee-id input is required'
-            }
+        {
+            type: 'input',
+            message: 'What is the Engineers Employee-ID?',
+            name: 'id',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Employee-id input is required'
+                }
+            },
         },
-    },
-    {
-        type: 'input',
-        message: 'What is your Email?',
-        name: 'email',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'Email input is required'
-            }
+        {
+            type: 'input',
+            message: 'What is the Engineers Email address?',
+            name: 'email',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Email input is required'
+                }
+            },
         },
-    },
-    {
-        type: 'input',
-        message: 'What is your Github username?',
-        name: 'github',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'GitHub username input is required'
-            }
+        {
+            type: 'input',
+            message: 'What is the Engineers Github username?',
+            name: 'github',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'GitHub username input is required'
+                }
+            },
         },
-    },
-]
+    ]).then(engResponse => {
+        const engineer = new Engineer(engResponse.name, engResponse.id, engResponse.email, engResponse.github);
+        team.push(engineer);
+        promptAdd();
+    })
+}
 
 // intern prompt
-const promptIntern = [
-    {
-        type: 'input',
-        message: 'What is your name?',
-        name: 'name',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'Name input is required'
-            }
+const promptIntern = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is the interns name?',
+            name: 'name',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Name input is required'
+                }
+            },
         },
-    },
-    {
-        type: 'input',
-        message: 'What is your Employee-ID?',
-        name: 'id',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'Employee-id input is required'
-            }
+        {
+            type: 'input',
+            message: 'What is the interns Employee-ID?',
+            name: 'id',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Employee-id input is required'
+                }
+            },
         },
-    },
-    {
-        type: 'input',
-        message: 'What is your Email?',
-        name: 'email',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'Email input is required'
-            }
+        {
+            type: 'input',
+            message: 'What is the interns Email address?',
+            name: 'email',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'Email input is required'
+                }
+            },
         },
-    },
-    {
-        type: 'input',
-        message: 'What school do you attend?',
-        name: 'school',
-        validate: (value) => {
-            if (value) {
-                return true
-            } else {
-                return 'School input is required'
-            }
+        {
+            type: 'input',
+            message: 'What school does the intern attend?',
+            name: 'school',
+            validate: (value) => {
+                if (value) {
+                    return true
+                } else {
+                    return 'School input is required'
+                }
+            },
         },
-    },
-]
+    ]).then(intResponse => {
+        const intern = new Intern(intResponse.name, intResponse.id, intResponse.email, intResponse.school);
+        promptAdd();
+    })
+}
 
-function writeToFile(response) {
-    
-    const pageContent = generateMarkdown(response);
+function writeToFile(team) {
+
+    const pageContent = generateMarkdown(team);
     fs.writeFile('./dist/index.html', pageContent, (err) => {
         if (err === true) {
             console.log('error');
@@ -186,20 +216,18 @@ function writeToFile(response) {
 
 }
 
+promptManager();
+
 // this function runs beginning prompt
-function init() {
-    console.log('Build your team!');
-    inquirer.prompt(promptManager)
-        .then((response) => {
-            console.log(response);
-            inquirer.prompt(promptAdd);
-
-            const pageContent = generateMarkdown(response);
-            writeToFile(response)
-        })
-
-}
-init()
+// function init() {
+//     console.log('Build your team!');
+//     inquirer.prompt(promptManager)
+//         .then((response) => {
+//             promptAdd();
+//             writeToFile(response)
+//         })
+// }
+// init()
 
 // // GIVEN a command-line application that accepts user input
 // WHEN I am prompted for my team members and their information

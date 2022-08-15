@@ -3,18 +3,17 @@ h1 {
     color: white;
     text-align: center;
     padding: 7% 0;
+
 }
 
 #cards {
     display: flex;
-    justify-content: space-between;
-    background-color: grey;
+    justify-content: space-around;
+    margin-top: 7%;
 }
 
 #classHeader {
     background-color: blue;
     color: white;
     font-size: 26px;
-
 }
-

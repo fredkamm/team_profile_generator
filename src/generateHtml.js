@@ -1,6 +1,6 @@
 const index = require('../index')
 
-function generateMarkdown(response) {
+function generateMarkdown(team) {
     return `<!doctype html>
     <html lang="en">
     
@@ -15,16 +15,17 @@ function generateMarkdown(response) {
     
     <body>
         <h1>My Team</h1>
-    
-        <div class="card border-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header" id="classHeader">Name</div>
-            <div class="card-header" id="classHeader">Position</div>
-            <div class="card-body text-primary">
-                <p class="card-text">ID:</p>
-                <p class="card-text">Email:</p>
-                <p class="card-text">Office Number:</p>
+        <section id="cards">
+            <div class="card border-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header" id="classHeader">${manResponse.name}</div>
+                <div class="card-header" id="classHeader">Position</div>
+                <div class="card-body text-primary">
+                    <p class="card-text">ID: ${manResponse.id}</p>
+                    <p class="card-text">Email: ${manResponse.email}</p>
+                    <p class="card-text">Office Number: ${manResponse.officeNumber}    </p>
+                </div>
             </div>
-        </div>
+        </section>
     
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -38,6 +39,6 @@ function generateMarkdown(response) {
     </body>
     
     </html>`;
-  }
-  
-  module.exports = generateMarkdown;
+}
+
+module.exports = generateMarkdown;
