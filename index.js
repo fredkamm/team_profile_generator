@@ -79,6 +79,7 @@ const promptManager = () => {
 
 // prompt to add employees that will be displayed after the manager prompt
 const promptAdd = () => {
+    console.log(team);
     return inquirer.prompt([
         {
             type: 'list',
@@ -91,8 +92,9 @@ const promptAdd = () => {
             return promptEngineer();
         } if (choice.addEmployee === 'Intern') {
             return promptIntern();
-        } if (choice.addEmployee === 'No, im done')
+        } if (choice.addEmployee === 'No, im done'){
             return console.log('Your team is set!');
+        }
     })
 }
 
@@ -211,16 +213,6 @@ const promptIntern = () => {
     })
 }
 
-// function writeToFile() {
-
-//     const pageContent = generateMarkdown();
-//     fs.writeFile('./dist/index.html', pageContent, (err) => {
-//         if (err === true) {
-//             console.log('error');
-//         }
-//     })
-
-// }
 
 promptManager();
 

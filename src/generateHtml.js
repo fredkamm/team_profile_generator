@@ -1,5 +1,6 @@
 const index = require('../index')
 
+// currently only generates the managers response
 function generateMarkdown(manResponse) {
     return `<!doctype html>
     <html lang="en">
@@ -18,10 +19,10 @@ function generateMarkdown(manResponse) {
         <section id="cards">
             <div class="card border-primary mb-3" style="max-width: 18rem;">
                 <div class="card-header" id="classHeader">${manResponse.name}</div>
-                <div class="card-header" id="classHeader">Position</div>
+                <div class="card-header" id="classHeader">Manager</div>
                 <div class="card-body text-primary">
                     <p class="card-text">ID: ${manResponse.id}</p>
-                    <p class="card-text">Email: ${manResponse.email}</p>
+                    <p class="email">Email: <a href="mailto:${manResponse.email}">${manResponse.email}</a></p>
                     <p class="card-text">Office Number: ${manResponse.officeNumber}</p>
                 </div>
             </div>
